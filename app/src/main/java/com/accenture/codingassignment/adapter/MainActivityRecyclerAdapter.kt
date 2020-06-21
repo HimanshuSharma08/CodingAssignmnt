@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.accenture.codingassignment.R
-import com.accenture.codingassignment.databinding.ListItemBinding
+import com.accenture.codingassignment.databinding.RowMainAdapterItemBinding
 import com.accenture.codingassignment.model.MainActivivityAdapterListModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -29,9 +29,9 @@ class MainActivityRecyclerAdapter(private val context: Context) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainActivityViewHolder {
         val rowListItemBiniding =
-            DataBindingUtil.inflate<ListItemBinding>(
+            DataBindingUtil.inflate<RowMainAdapterItemBinding>(
                 LayoutInflater.from(parent.context),
-                R.layout.list_item,
+                R.layout.row_main_adapter_item,
                 parent,
                 false
             )
@@ -47,7 +47,7 @@ class MainActivityRecyclerAdapter(private val context: Context) :
         holder.bind(list.get(position))
     }
 
-    class MainActivityViewHolder(val binding: ListItemBinding) :
+    class MainActivityViewHolder(val binding: RowMainAdapterItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MainActivivityAdapterListModel) {
             binding.item = item

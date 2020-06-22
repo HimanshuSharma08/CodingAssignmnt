@@ -1,6 +1,5 @@
 package com.accenture.codingassignment.adapter
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -17,16 +16,23 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 
-class MainActivityRecyclerAdapter(private val context: Context) :
+
+/* This class is used to inflated rows of list data.
+ * @MainActivityViewHolder it creates new view for each item of list and hold its reference.
+*/
+class MainActivityRecyclerAdapter() :
     RecyclerView.Adapter<MainActivityRecyclerAdapter.MainActivityViewHolder>() {
 
+    // Initialize list of MainActivivityAdapterListModel.
     protected var list: List<MainActivivityAdapterListModel> = ArrayList()
 
+    // Update list with Server data list and notify Adapter View's to change accordingly.
     fun setDataList(list: List<MainActivivityAdapterListModel>) {
         this.list = list
         notifyDataSetChanged()
     }
 
+    // This is used to create new View of MainActivityViewHolder Type.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainActivityViewHolder {
         val rowListItemBiniding =
             DataBindingUtil.inflate<RowMainAdapterItemBinding>(
@@ -39,19 +45,24 @@ class MainActivityRecyclerAdapter(private val context: Context) :
 
     }
 
+    // This is to notify how many rows will be there to create.
     override fun getItemCount(): Int {
         return list.size
     }
 
+    // Update each row item on basis of position in list and view in adapter data based on that position.
     override fun onBindViewHolder(holder: MainActivityViewHolder, position: Int) {
         holder.bind(list.get(position))
     }
 
+
+    // this is used to create seprate view to each list data
     class MainActivityViewHolder(val binding: RowMainAdapterItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MainActivivityAdapterListModel) {
             binding.item = item
             if (!TextUtils.isEmpty(item.imageHref))
+                // Load image
                 Glide.with(binding.root.context).asBitmap().load(item.imageHref)
                     .apply(RequestOptions())
                     .addListener(object : RequestListener<Bitmap> {
